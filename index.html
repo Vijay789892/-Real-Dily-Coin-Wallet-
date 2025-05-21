@@ -4,9 +4,26 @@
   <meta charset="UTF-8">
   <title> डायनासोर Real Dily 🪙 Coin Wallet</title>
   <style>
-    body {
+    :root {
+      --primary-color: #3498db;
+      --secondary-color: #2ecc71;
+      --accent-color: #ffd700;
+      --danger-color: #e74c3c;
+      --background-color: #f5f5f5;
+      --card-color: #ffffff;
+      --text-color: #333333;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+
+body {
       font-family: sans-serif;
-      background: #f0f0f0;
+      background: #ffffff;
       padding: 20px;
       text-align: center;
     }
@@ -44,6 +61,9 @@
     .hidden {
       display: none;
     }
+
+
+    
     .timer-box {
       position: absolute;
       top: -25px;
@@ -73,42 +93,84 @@
   border-radius: 10px;
 }
 
-.home-btn {
-  position: fixed;
-  top: 40px;
-  left: 40px;
-  width: 55px;
-  height: 55px;
-  background: #007bff;
-  color: white;
-  border-radius: 50%;
-  font-size: 24px;
-  text-align: center;
-  line-height: 50px;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  z-index: 1000;
-}
+  .home-btn {
+    position: fixed;
+    top: 45px;
+    left: 45px;
+    width: 66px;
+    height: 66px;
+    background: #007bff;
+    color: white;
+    border-radius: 25%;
+    font-size: 40px;
+    text-align: center;
+    line-height: 60px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+  }
 
-.home-menu {
-  position: fixed;
-  top: 80px;
-  left: 20px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  padding: 10px;
-  width: 220px;
-  display: none;
-  z-index: 999;
-}
+  .home-menu {
+    position: fixed;
+    top: 105px;
+    left: 20px;
+    background: #007bff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    padding: 10px;
+    width: 85%;
+    max-width: 260px;
+    display: none;
+    z-index: 999;
+  }
 
-.home-menu input,
-.home-menu button {
-  width: 92%;
-  margin: 10px 0;
-  padding: 8px;
-}
+  .home-menu input,
+  .home-menu button,
+  .home-menu a.menu-item {
+    width: 100%;
+    margin: 8px 0;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    box-sizing: border-box;
+  }
+
+  .home-menu button,
+  .home-menu a.menu-item {
+    background-color: green;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+
+  .home-menu button:hover,
+  .home-menu a.menu-item:hover {
+    background-color: darkgreen;
+  }
+
+  @media (max-width: 480px) {
+    .home-btn {
+      width: 50px;
+      height: 50px;
+      font-size: 28px;
+      line-height: 50px;
+    }
+
+    .home-menu {
+      top: 80px;
+      left: 10px;
+      width: 90%;
+    }
+
+    .home-menu input,
+    .home-menu button,
+    .home-menu a.menu-item {
+      font-size: 15px;
+    }
+  }
+
 
 /* History Modal Styling */
 .history-modal {
@@ -189,7 +251,56 @@
   margin-bottom: 20px;
 }
 
+/* Inactive User Modal */
+.inactive-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 3500;
+  color: white;
+  text-align: center;
+  padding-top: 20%;
+}
 
+.inactive-content {
+  font-size: 24px;
+  background: rgba(255, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  margin: 0 auto;
+  max-width: 80%;
+}
+
+.resume-btn {
+  background: #ffd700;
+  color: black;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+#loginButton {
+    background-color: darkblue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  #loginButton:hover {
+    background-color: #007bff; /* थोड़ा और गहरा नीला */
+  }
 body { 
   margin: 0; 
   font-family: sans-serif; 
@@ -270,7 +381,7 @@ body {
 
 #lives {
   position: fixed;
-  top: 680px;
+  top: 650px;
   left: 110px;
   font-size: 22px;
   padding: 10px;
@@ -505,6 +616,8 @@ body {
   font-size: 30px;
   z-index: 4; /* डायनासोर के पीछे दिखे */
 }
+
+
   </style>
 </head>
 <body>
@@ -514,6 +627,20 @@ body {
   <div class="no-internet-content">
     <h2>⚠️ इंटरनेट कनेक्शन नहीं!</h2>
     <p>कृपया इंटरनेट चालू करें</p>
+
+<h2 style="font-size: 300px;">🦕</h2>
+
+   <h2>  🧱 डायनासोर Real Dily Coin Wallet 🧱</h2>
+ 
+  </div>
+</div>
+
+<!-- Inactive User Modal -->
+<div id="inactiveModal" class="inactive-modal">
+  <div class="inactive-content">
+    <h2>⚠️ Welcome !</h2>
+    <p>  आप गेम से बाहर चले गए थे   </p>
+    <button class="resume-btn" onclick="resumeGame()">🦕 गेम शुरू करें</button>
   </div>
 </div>
 
@@ -521,7 +648,7 @@ body {
 <div id="historyModal" class="history-modal">
   <div class="history-content">
     <span class="history-close" onclick="closeHistory()">&times;</span>
-    <h2>Coin History</h2>
+    <h2>Coine History</h2>
     <div id="historyList">
       <!-- History items will be added here -->
     </div>
@@ -534,20 +661,23 @@ body {
  <input type="text" id="inviteUser" placeholder="Enter friend's username" />
 <button onclick="claimReferral()">Claim Invite Bonus</button>
 <button onclick="showHistory()">History</button>
-<a href="#" class="menu-item">Help</a>
-<a href="#" class="menu-item">newgame</a>
 <button onclick="shareApp()">Share</button>
 <button onclick="logout()">Logout</button>
+<button id="button1" onclick="myFunction()"> 
+ <a href="#" class="menu-item">Download App </a>
+ </button>
 <button id="button1" onclick="myFunction()"> 
  <a href="#" class="menu-item">खेल के नियम और कानून </a>
  </button>
 <button id="button1" onclick="myFunction()"> 
- <a href="#" class="menu-item">Help</a>
+ <a href="#" class="menu-item">नया game </a>
  </button>
 <button id="button1" onclick="myFunction()"> 
  <a href="#" class="menu-item">Help</a>
  </button>
 </div>
+
+
 
 
 
@@ -566,12 +696,19 @@ body {
   
       <input type="text" id="username" placeholder="Username" />
       <input type="password" id="password" placeholder="Password" />
-      <button onclick="login()">Login</button>
+
+
+<button id="loginButton" onclick="login()">लॉगिन / रजिस्टर</button>
     </div>
 
+   
+
     <div id="walletBox" class="hidden">
-      <h3 id="welcomeText"></h3>
-      <div class="balance">Balance: <span id="balance">0</span> Dily Coin</div>
+      <h2 id="welcomeText"></h2>
+
+
+
+      <div class="balance">Balance: [ <span id="balance">0</span> Dily Coin ] </div> 
 
       <!-- Notify Area -->
       <div class="notify" id="notifyBox"></div>
@@ -592,10 +729,12 @@ body {
   <br>
   <button onclick="processWithdraw()">निकालें</button>
 </div>
+
+
 <button id="start-btn">🦕 शुरू करें</button>
 
 <div id="score">लेवल: 1 | स्कोर: 0 | खाया: 0</div>
-<div id="lives">जान: ❤️❤️❤️</div>
+<div id="lives">Lives: ❤️❤️❤️</div>
 <div id="power-indicator">🧲 चुंबकीय शक्ति: <span id="magnet-time">0</span> सेकंड</div>
 <div id="immunity-indicator">🛡️ अमरत्व शक्ति: <span id="immunity-time">0</span> सेकंड</div>
 <div id="countdown"></div>
@@ -629,34 +768,78 @@ body {
 <button id="restart-btn">↑ फिर से खेलें</button>
 <button id="fly-btn">↑</button>
 
+
   <script>
     let sessionSeconds = 0;
     let sessionTimer = null;
     let internetCheckInterval = null;
-    let wasOffline = false; // Track if the connection was previously offline
+    let inactiveTime = 0;
+    let inactivityCheckTimer = null;
+    let maxInactiveTime = 20; // 20 seconds of inactivity before showing modal
+    let userActive = true;
+    let lastActivityTime = Date.now();
+    let wasInactive = false;
+
+    // Function to track user activity
+    function trackActivity() {
+      lastActivityTime = Date.now();
+      
+      if (!userActive) {
+        userActive = true;
+        // If timer was stopped due to inactivity, don't auto-restart it
+        // The user must click the resume button
+        if (wasInactive) {
+          document.getElementById("inactiveModal").style.display = "block";
+        }
+      }
+    }
+
+    // Function to check if user is inactive
+    function checkUserActivity() {
+      const currentTime = Date.now();
+      const timeSinceLastActivity = (currentTime - lastActivityTime) / 1000;
+      
+      if (timeSinceLastActivity > maxInactiveTime && userActive) {
+        userActive = false;
+        wasInactive = true;
+        stopSessionTimer();
+        document.getElementById("inactiveModal").style.display = "block";
+      }
+    }
+
+    // Resume game after inactivity
+    function resumeGame() {
+      userActive = true;
+      wasInactive = false;
+      lastActivityTime = Date.now();
+      document.getElementById("inactiveModal").style.display = "none";
+      startSessionTimer();
+    }
+
+    // Setup activity tracking
+    function setupActivityTracking() {
+      // Track various user activities
+      const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
+      
+      events.forEach(event => {
+        document.addEventListener(event, trackActivity, true);
+      });
+      
+      // Check for inactivity every second
+      inactivityCheckTimer = setInterval(checkUserActivity, 1000);
+    }
 
     // Function to check internet connection
     function checkInternetConnection() {
       const noInternetModal = document.getElementById("noInternetModal");
       
       if (!navigator.onLine) {
-        // Internet is offline
         noInternetModal.style.display = "block";
-        
-        // Stop the timer if it's running and we're not already in offline state
-        if (sessionTimer && !wasOffline) {
-          stopSessionTimer();
-          wasOffline = true; // Mark that we detected offline state
-        }
+        // Also stop the timer when there's no internet
+        stopSessionTimer();
       } else {
-        // Internet is online
         noInternetModal.style.display = "none";
-        
-        // Restart the timer if we were previously offline and now we're online
-        if (wasOffline && localStorage.getItem("loggedInUser")) {
-          startSessionTimer();
-          wasOffline = false; // Reset offline flag
-        }
+        // Don't automatically restart the timer - this should happen on user interaction
       }
     }
 
@@ -671,26 +854,28 @@ body {
       // Add event listeners for online/offline events
       window.addEventListener('online', function() {
         document.getElementById("noInternetModal").style.display = "none";
-        
-        // Restart timer if logged in and we were previously offline
-        if (wasOffline && localStorage.getItem("loggedInUser")) {
-          startSessionTimer();
-          showNotification("इंटरनेट कनेक्शन वापस आ गया है, 🦕 डायनासोर गमे शुरू करे !");
-          wasOffline = false;
-        }
       });
       
       window.addEventListener('offline', function() {
         document.getElementById("noInternetModal").style.display = "block";
-        
-        // Stop timer if it's running
-        if (sessionTimer) {
-          stopSessionTimer();
-          showNotification("इंटरनेट कनेक्शन बंद होने के कारण 🦕 डायनासोर गमे नही चल रहा कृपा इंटरनेट सेवा चालू करे |");
-          wasOffline = true;
-        }
+        stopSessionTimer();
       });
     }
+
+    // Handle page visibility changes
+    document.addEventListener('visibilitychange', function() {
+      if (document.visibilityState === 'hidden') {
+        // User switched tabs or minimized window
+        stopSessionTimer();
+        wasInactive = true;
+      } else {
+        // User came back to the tab
+        // Don't auto-restart, show the inactive modal
+        if (wasInactive && sessionTimer === null) {
+          document.getElementById("inactiveModal").style.display = "block";
+        }
+      }
+    });
 
     function getUsers() {
       return JSON.parse(localStorage.getItem("users") || "{}");
@@ -747,16 +932,11 @@ body {
         document.getElementById("welcomeText").innerText = "Welcome, " + username;
         document.getElementById("balance").innerText = users[username].balance;
         checkDaily();
-        
-        // Only start timer if internet is connected
-        if (navigator.onLine) {
-          startSessionTimer();
-          wasOffline = false;
-        } else {
-          wasOffline = true;
-        }
-        
+        startSessionTimer();
         updateWithdrawOptions();
+        setupActivityTracking(); // Start tracking user activity
+        userActive = true;
+        lastActivityTime = Date.now();
       }
     }
 
@@ -801,7 +981,7 @@ body {
         const reward = [0, 2, 5, 1, 1, 0, 3, 4][Math.floor(Math.random() * 8)];
         updateBalance(reward, "Spin Wheel");
         alert(`You got ${reward} Coins!`);
-        window.location.href = "https://www.mp4moviez.law/"; // ऐड लिंक
+        window.location.href = "https://real-dily-coin-wallet.vercel.app/"; // ऐड लिंक
       }, 5000);
     }
 
@@ -888,17 +1068,16 @@ body {
       sessionSeconds = 0;
       resetSessionTimerDisplay();
       stopSessionTimer();
+      
+      // Also clear the inactivity timer
+      if (inactivityCheckTimer) {
+        clearInterval(inactivityCheckTimer);
+        inactivityCheckTimer = null;
+      }
     }
 
     function startSessionTimer() {
       if (sessionTimer) return;
-      
-      // Only start if online
-      if (!navigator.onLine) {
-        wasOffline = true;
-        return;
-      }
-      
       sessionTimer = setInterval(() => {
         sessionSeconds++;
         updateTimerDisplay();
@@ -1095,7 +1274,7 @@ body {
       const history = users[username].coinHistory || [];
       
       if (history.length === 0) {
-        historyList.innerHTML = "<p>No coin history available yet.</p>";
+        historyList.innerHTML = "<p>No coine history available yet.</p>";
       } else {
         // Sort history by date (newest first)
         history.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -1137,6 +1316,15 @@ body {
       console.log("Button clicked");
     }
 
+    // Save timer state before page unload
+    window.addEventListener('beforeunload', function() {
+      // If the timer is running, mark that the user left
+      if (sessionTimer !== null) {
+        wasInactive = true;
+        stopSessionTimer();
+      }
+    });
+
     window.onload = () => {
       fillReferralFromURL();
       const username = localStorage.getItem("loggedInUser");
@@ -1147,6 +1335,7 @@ body {
       // Setup internet connection monitoring
       setupInternetMonitoring();
     };
+
 
 const startBtn = document.getElementById("start-btn");
 const dino = document.getElementById("dino");
