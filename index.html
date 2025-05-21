@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title> डायनासोर Real Dily 🪙 Coin Wallet</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f0f0f0;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      background: white;
+      padding: 100px;
+      max-width: 1000px;
+      margin: auto;
+      border-radius: 12px;
+      box-shadow: 0 0 100px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    .balance {
+      font-size: 20px;
+      margin: 15px 0;
+      color: green;
+    }
+    .box {
+      background: #007bff;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+    .box:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+    .hidden {
+      display: none;
+    }
+    .timer-box {
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ffd700;
+      color: #000;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      box-shadow: 0 0 5px #999;
+    }
+    .notify {
+      background: #28a745;
+      color: #fff;
+      padding: 8px;
+      border-radius: 8px;
+      margin-top: 10px;
+      display: none;
+    }
+
+#withdrawSection {
+  background: #f9f9f9;
+  padding: 10px;
+  margin: 1px 0;
+  border: 1px dashed #aaa;
+  border-radius: 10px;
+}
+
+.home-btn {
+  position: fixed;
+  top: 40px;
+  left: 40px;
+  width: 55px;
+  height: 55px;
+  background: #007bff;
+  color: white;
+  border-radius: 50%;
+  font-size: 24px;
+  text-align: center;
+  line-height: 50px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+.home-menu {
+  position: fixed;
+  top: 80px;
+  left: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  padding: 10px;
+  width: 220px;
+  display: none;
+  z-index: 999;
+}
+
+.home-menu input,
+.home-menu button {
+  width: 92%;
+  margin: 10px 0;
+  padding: 8px;
+}
+
+/* History Modal Styling */
+.history-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 2000;
+}
+
+.history-content {
+  position: relative;
+  background-color: white;
+  margin: 10% auto;
+  padding: 20px;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 10px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.history-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.history-item {
+  padding: 10px;
+  margin: 5px 0;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.history-date {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.history-amount {
+  color: green;
+  font-weight: bold;
+}
+
+.history-source {
+  color: #666;
+  font-style: italic;
+}
+
+/* No Internet Modal */
+.no-internet-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 0, 0, 0.9);
+  z-index: 3000;
+  color: white;
+  text-align: center;
+  padding-top: 20%;
+}
+
+.no-internet-content {
+  font-size: 24px;
+}
+
+.no-internet-content h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+
+body { 
+  margin: 0; 
+  font-family: sans-serif; 
+  overflow: hidden; 
+  background-color: #ddf3ff; 
+  user-select: none; 
+  transition: background-color 2s; 
+  touch-action: manipulation; 
+}
+
+#game {
+  width: 75.4vw;
+  height: 450px;
+  background: #fff;
+  border-bottom: 3px solid #000;
+  position: relative;
+  overflow: hidden;
+}
+
+#dino {
+  width: 60px;
+  height: 60px;
+  font-size: 50px;
+  position: absolute;
+  left: 50px;
+  bottom: 0;
+  transition: bottom 0.1s ease-out;
+  z-index: 10;
+}
+
+.obstacle {
+  width: 45px;
+  height: 45px;
+  font-size: 35px;
+  position: absolute;
+  bottom: 0;
+  right: -45px;
+  animation: move linear forwards;
+  z-index: 5;
+  transition: transform 0.5s;
+}
+
+@keyframes move {
+  0% { right: -45px; }
+  100% { right: 100%; }
+}
+
+#sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 30px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+#ground {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: #000;
+  z-index: 2;
+}
+
+#score {
+  position: relative;
+  font-size: 18px;
+  padding: 10px;
+  background: rgba(255,255,255,0.8);
+  display: inline-block;
+  border-radius: 10px;
+  margin: 10px;
+  z-index: 99;
+}
+
+#lives {
+  position: fixed;
+  top: 680px;
+  left: 110px;
+  font-size: 22px;
+  padding: 10px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 10px;
+  z-index: 99;
+}
+
+#magnet-timer {
+  position: fixed;
+  top: 50px;
+  right: 10px;
+  padding: 5px 10px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 10px;
+  font-size: 16px;
+  display: none;
+  z-index: 99;
+}
+
+#restart-btn {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 18px;
+  display: none;
+  z-index: 100;
+}
+
+#fly-btn {
+  position: fixed;
+  bottom: 100px;
+  right: 10px;
+  width: 60px;
+  height: 60px;
+  background: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+#eaten-items {
+  position: fixed;
+  bottom: 10px;
+  left: 20px;
+  right: 20px;
+  max-height: 250px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 10px;
+  padding: 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 26px;
+  line-height: 1.5;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#eaten-items span {
+  background: #e0f7e9;
+  padding: 5px 10px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.jump {
+  animation: jump 0.5s ease-out;
+}
+
+@keyframes jump {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.cloud {
+  position: absolute;
+  font-size: 40px;
+  opacity: 0.7;
+  animation: cloudMove linear infinite;
+}
+
+@keyframes cloudMove {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100px); }
+}
+
+@keyframes hueRotate {
+  0% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(180deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+.magnetized {
+  animation: hueRotate 1s infinite;
+  filter: saturate(1.5) brightness(1.2);
+}
+
+.immune {
+  animation: pulse 1s infinite alternate;
+  filter: drop-shadow(0 0 10px gold);
+}
+
+@keyframes pulse {
+  0% { opacity: 0.8; }
+  100% { opacity: 1; }
+}
+
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+.heart-lost {
+  animation: heartBeat 0.5s;
+  color: red;
+}
+
+/* म्यूट बटन स्टाइल */
+#mute-btn {
+  position: fixed;
+  top: 10px;
+  right: 50px;
+  width: 70px;
+  height: 70px;
+  background: rgba(255,255,255,0.8);
+  border: none;
+  border-radius: 50%;
+  font-size: 70px;
+  z-index: 1000;
+  cursor: pointer;
+}
+#start-btn {
+  position: fixed;
+  top: 66%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 15px 10px;
+  font-size: 20px;
+  background: #ff9800;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+#power-indicator {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.8);
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 16px;
+  display: none;
+  z-index: 100;
+}
+
+#immunity-indicator {
+  position: fixed;
+  top: 10px;
+  left: 10%;
+  transform: translateX(-50%);
+  background: rgba(255,220,50,0.8);
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 16px;
+  display: none;
+  z-index: 100;
+}
+
+/* काउंटडाउन स्टाइल */
+#countdown {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 150px;
+  color: #ff5722;
+  font-weight: bold;
+  text-shadow: 0 0 20px rgba(255,255,255,0.8);
+  z-index: 1001;
+  display: none;
+  animation: scale-in 0.5s ease-out;
+}
+
+@keyframes scale-in {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0.5; }
+  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+/* नयी स्टाइल - ट्रेन और बोगियां */
+.train-car {
+  position: absolute;
+  font-size: 35px;
+  bottom: 0;
+  animation: move linear forwards;
+  z-index: 5;
+}
+
+.special-effect {
+  animation: specialEffect 0.8s infinite alternate;
+}
+
+@keyframes specialEffect {
+  0% { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1.1) rotate(5deg); }
+}
+
+/* सुधारित लिंक */
+#eaten-items a {
+  text-decoration: none;
+}
+.train-car {
+  width: 40px;
+  height: 40px;
+  animation: move linear forwards;
+  font-size: 30px;
+  z-index: 4; /* डायनासोर के पीछे दिखे */
+}
+  </style>
+</head>
+<body>
+
+<!-- No Internet Modal -->
+<div id="noInternetModal" class="no-internet-overlay">
+  <div class="no-internet-content">
+    <h2>⚠️ इंटरनेट कनेक्शन नहीं!</h2>
+    <p>कृपया इंटरनेट चालू करें</p>
+  </div>
+</div>
+
+<!-- History Modal -->
+<div id="historyModal" class="history-modal">
+  <div class="history-content">
+    <span class="history-close" onclick="closeHistory()">&times;</span>
+    <h2>Coin History</h2>
+    <div id="historyList">
+      <!-- History items will be added here -->
+    </div>
+  </div>
+</div>
+
+<div class="home-btn" onclick="toggleMenu()">&#9776;</div>
+
+<div class="home-menu" id="homeMenu">
+ <input type="text" id="inviteUser" placeholder="Enter friend's username" />
+<button onclick="claimReferral()">Claim Invite Bonus</button>
+<button onclick="showHistory()">History</button>
+<a href="#" class="menu-item">Help</a>
+<a href="#" class="menu-item">newgame</a>
+<button onclick="shareApp()">Share</button>
+<button onclick="logout()">Logout</button>
+<button id="button1" onclick="myFunction()"> 
+ <a href="#" class="menu-item">खेल के नियम और कानून </a>
+ </button>
+<button id="button1" onclick="myFunction()"> 
+ <a href="#" class="menu-item">Help</a>
+ </button>
+<button id="button1" onclick="myFunction()"> 
+ <a href="#" class="menu-item">Help</a>
+ </button>
+</div>
+
+
+
+  <div class="container">
+    <!-- Time Box -->
+    <div class="timer-box" id="timerBox">
+      Time Spent: <span id="timeElapsed">00:00</span>
+    </div>
+
+<button id="button1" onclick="myFunction()">    <h2> 🦕 डायनासोर Real Dily 🪙 Coin earn Wallet 💳</h2></button>
+
+
+    <div id="loginBox">
+
+<b>आप इस app से Dily के 500 रू, 1000 रू से भी जादा कमा सकते हैं, जिसे आप UPI ID से Withdrawal कर सकते है। </b>
+  
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="login()">Login</button>
+    </div>
+
+    <div id="walletBox" class="hidden">
+      <h3 id="welcomeText"></h3>
+      <div class="balance">Balance: <span id="balance">0</span> Dily Coin</div>
+
+      <!-- Notify Area -->
+      <div class="notify" id="notifyBox"></div>
+
+      <div class="box" onclick="scratchCard(this)">Scratch & Earn</div>
+      <div class="box" onclick="spinWheel()">Spin the Wheel</div>
+      <div class="box" id="dailyBtn" onclick="dailyBonus()">Daily Bonus</div>
+<div class="box" onclick="withdrawBox()">पैसे निकाले</div>
+<div id="withdrawSection" class="hidden">
+  <h4>UPI ID डालें:</h4>
+  <input type="text" id="upiId" placeholder="example@upi" />
+
+  <h4>Withdraw Amount:</h4>
+  <select id="withdrawAmount">
+ 
+ </select>
+
+  <br>
+  <button onclick="processWithdraw()">निकालें</button>
+</div>
+<button id="start-btn">🦕 शुरू करें</button>
+
+<div id="score">लेवल: 1 | स्कोर: 0 | खाया: 0</div>
+<div id="lives">जान: ❤️❤️❤️</div>
+<div id="power-indicator">🧲 चुंबकीय शक्ति: <span id="magnet-time">0</span> सेकंड</div>
+<div id="immunity-indicator">🛡️ अमरत्व शक्ति: <span id="immunity-time">0</span> सेकंड</div>
+<div id="countdown"></div>
+
+<button id="rules-btn" onclick="myDialog.showModal()">खेलने के नियम</button>
+
+<dialog id="myDialog">
+  <h3>उड़ता डायनासोर - गेम के नियम</h3>
+  <p>जितना अधिक आप इस खेल को खेलते हैं, इस खेल मे time बिताते है l उतना ही अधिक सिक्का आपको हर 1 मिनट मे 10+ कॉइन 🪙 मिलता है</p>
+  <p>और अधिक स्कोर करने पर 60 मिनट खेलने पर Real 300+🪙 Coine मिलेंगे जिसे आप UPI ID से निकल सकते हैं l</p>
+  <p><b>जरूरी जानकरी:</b> अगर आपको कॉइन 🪙 के बदले पैसे नही मिला है तो</p>
+  <p><b>&#9776;Home</b> बटन दाबाकर <a href="#" class="menu-item">Help</a> ले सकते है l</p>
+  <p>💳 UPI ID डालकर 10 मिनट में अपना पैसा निकाल सकते हैं</p>
+
+  <p>🦕 डायनासोर को उड़ाने के लिए स्क्रीन पर टैप करें या स्पेस कुंजी दबाएं।</p>
+  <p>🌿 हरे आइटम्स को खाएं और स्कोर बढ़ाएं।</p>
+  <p>❌ खतरनाक चीज़ों (🚗, 🔥, 💣) से बचें वरना गेम ओवर हो जाएगा।</p>
+  <p>🧲 <b>चुम्बक:</b> इसे खाने पर 10 सेकंड तक सभी अच्छे आइटम आपकी ओर खिंचेंगे!</p>
+  <p>✴️ <b>अमरत्व शक्ति:</b> ✴️🌀✳️❇️ इन आइटम्स को खाने पर 30 सेकंड तक आप अमर हो जाएंगे!</p>
+  <p>🚄 <b>ट्रेन से सावधान:</b> ट्रेन में कई बोगियां होती हैं, इन्हें पार करना कठिन है!</p>
+  <button onclick="myDialog.close()">समझ गया ✖️</button>
+</dialog>
+<button id="mute-btn">🔊</button>
+<div id="game">
+  <div id="sky"></div>
+  <div id="clouds"></div>
+  <div id="ground"></div>
+  <div id="dino">🦕</div>
+</div>
+<div id="eaten-items"></div>
+<button id="restart-btn">↑ फिर से खेलें</button>
+<button id="fly-btn">↑</button>
+
+  <script>
+    let sessionSeconds = 0;
+    let sessionTimer = null;
+    let internetCheckInterval = null;
+    let wasOffline = false; // Track if the connection was previously offline
+
+    // Function to check internet connection
+    function checkInternetConnection() {
+      const noInternetModal = document.getElementById("noInternetModal");
+      
+      if (!navigator.onLine) {
+        // Internet is offline
+        noInternetModal.style.display = "block";
+        
+        // Stop the timer if it's running and we're not already in offline state
+        if (sessionTimer && !wasOffline) {
+          stopSessionTimer();
+          wasOffline = true; // Mark that we detected offline state
+        }
+      } else {
+        // Internet is online
+        noInternetModal.style.display = "none";
+        
+        // Restart the timer if we were previously offline and now we're online
+        if (wasOffline && localStorage.getItem("loggedInUser")) {
+          startSessionTimer();
+          wasOffline = false; // Reset offline flag
+        }
+      }
+    }
+
+    // Set up internet connection monitoring
+    function setupInternetMonitoring() {
+      // Initial check
+      checkInternetConnection();
+      
+      // Check every 5 seconds
+      internetCheckInterval = setInterval(checkInternetConnection, 5000);
+      
+      // Add event listeners for online/offline events
+      window.addEventListener('online', function() {
+        document.getElementById("noInternetModal").style.display = "none";
+        
+        // Restart timer if logged in and we were previously offline
+        if (wasOffline && localStorage.getItem("loggedInUser")) {
+          startSessionTimer();
+          showNotification("इंटरनेट कनेक्शन वापस आ गया है, 🦕 डायनासोर गमे शुरू करे !");
+          wasOffline = false;
+        }
+      });
+      
+      window.addEventListener('offline', function() {
+        document.getElementById("noInternetModal").style.display = "block";
+        
+        // Stop timer if it's running
+        if (sessionTimer) {
+          stopSessionTimer();
+          showNotification("इंटरनेट कनेक्शन बंद होने के कारण 🦕 डायनासोर गमे नही चल रहा कृपा इंटरनेट सेवा चालू करे |");
+          wasOffline = true;
+        }
+      });
+    }
+
+    function getUsers() {
+      return JSON.parse(localStorage.getItem("users") || "{}");
+    }
+
+    function saveUsers(users) {
+      localStorage.setItem("users", JSON.stringify(users));
+    }
+
+    function login() {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (!username || !password) {
+        alert("Please enter both fields");
+        return;
+      }
+
+      let users = getUsers();
+
+      if (!users[username]) {
+        users[username] = {
+          password: password,
+          balance: 0,
+          lastDaily: null,
+          invited: false,
+          referredBy: null,
+          coinHistory: [], // Initialize coin history array
+          savedUpiId: null // Initialize saved UPI ID
+        };
+        saveUsers(users);
+      } else if (users[username].password !== password) {
+        alert("Incorrect password");
+        return;
+      }
+
+      // Initialize coinHistory if it doesn't exist
+      if (!users[username].coinHistory) {
+        users[username].coinHistory = [];
+        saveUsers(users);
+      }
+
+      localStorage.setItem("loggedInUser", username);
+      showWallet();
+    }
+
+    function showWallet() {
+      const username = localStorage.getItem("loggedInUser");
+      const users = getUsers();
+
+      if (users[username]) {
+        document.getElementById("loginBox").classList.add("hidden");
+        document.getElementById("walletBox").classList.remove("hidden");
+        document.getElementById("welcomeText").innerText = "Welcome, " + username;
+        document.getElementById("balance").innerText = users[username].balance;
+        checkDaily();
+        
+        // Only start timer if internet is connected
+        if (navigator.onLine) {
+          startSessionTimer();
+          wasOffline = false;
+        } else {
+          wasOffline = true;
+        }
+        
+        updateWithdrawOptions();
+      }
+    }
+
+    function updateBalance(amount, source = "Generic") {
+      const username = localStorage.getItem("loggedInUser");
+      let users = getUsers();
+      
+      // Add to balance
+      users[username].balance += amount;
+      
+      // Record in history
+      if (!users[username].coinHistory) {
+        users[username].coinHistory = [];
+      }
+      
+      users[username].coinHistory.push({
+        date: new Date().toISOString(),
+        amount: amount,
+        source: source
+      });
+      
+      saveUsers(users);
+      document.getElementById("balance").innerText = users[username].balance;
+    }
+
+    function scratchCard(el) {
+      el.innerText = "Please wait...";
+      el.style.background = "#999";
+      el.style.pointerEvents = "none";
+      setTimeout(() => {
+        const reward = Math.floor(Math.random() * 4) + 1;
+        updateBalance(reward, "Scratch Card");
+        el.innerText = `You got ${reward} Coins!`;
+        el.style.background = "green";
+        window.location.href = "https://example.com/ad"; // ऐड लिंक
+      }, 5000); // 5 सेकंड वेट
+    }
+
+    function spinWheel() {
+      alert("Please wait 5 seconds to claim your reward coines...");
+      setTimeout(() => {
+        const reward = [0, 2, 5, 1, 1, 0, 3, 4][Math.floor(Math.random() * 8)];
+        updateBalance(reward, "Spin Wheel");
+        alert(`You got ${reward} Coins!`);
+        window.location.href = "https://www.mp4moviez.law/"; // ऐड लिंक
+      }, 5000);
+    }
+
+    function checkDaily() {
+      const username = localStorage.getItem("loggedInUser");
+      const users = getUsers();
+      const today = new Date().toDateString();
+
+      if (users[username].lastDaily === today) {
+        document.getElementById("dailyBtn").innerText = "Daily Bonus (Claimed)";
+        document.getElementById("dailyBtn").disabled = true;
+      }
+    }
+
+    function dailyBonus() {
+      const username = localStorage.getItem("loggedInUser");
+      const users = getUsers();
+      const today = new Date().toDateString();
+
+      if (users[username].lastDaily !== today) {
+        alert("Wait 5 seconds to claim your daily bonus...");
+        setTimeout(() => {
+          updateBalance(5, "Daily Bonus");
+          users[username].lastDaily = today;
+          saveUsers(users);
+          document.getElementById("balance").innerText = users[username].balance;
+          document.getElementById("dailyBtn").innerText = "Daily Bonus (Claimed)";
+          document.getElementById("dailyBtn").disabled = true;
+          alert("You got 5 coins as Daily Bonus!");
+          window.location.href = "https://example.com/ad"; // ऐड लिंक
+        }, 5000);
+      } else {
+        alert("आपने पहले ही आज के 10+ 🪙Coine ले लिया  है l अब आपको अगला 10+ 🪙 Coine कल मिलेगा.");
+      }
+    }
+
+    function claimReferral() {
+      const referredBy = document.getElementById("inviteUser").value.trim();
+      const currentUser = localStorage.getItem("loggedInUser");
+      let users = getUsers();
+
+      if (!referredBy || referredBy === currentUser) {
+        alert("Invalid username.");
+        return;
+      }
+
+      if (!users[referredBy]) {
+        alert("This user does not exist.");
+        return;
+      }
+
+      if (users[currentUser].referredBy) {
+        alert("You have already claimed referral bonus.");
+        return;
+      }
+
+      // Referral success
+      users[currentUser].referredBy = referredBy;
+      updateBalance(5, "Referral Bonus");
+      
+      // Add coins to referrer
+      users[referredBy].balance += 10;
+      
+      // Add to referrer's history
+      if (!users[referredBy].coinHistory) {
+        users[referredBy].coinHistory = [];
+      }
+      users[referredBy].coinHistory.push({
+        date: new Date().toISOString(),
+        amount: 10,
+        source: `Referral (${currentUser})`
+      });
+      
+      saveUsers(users);
+
+      document.getElementById("balance").innerText = users[currentUser].balance;
+      alert("Referral successful! You got 5 🪙Coine.");
+    }
+
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      document.getElementById("loginBox").classList.remove("hidden");
+      document.getElementById("walletBox").classList.add("hidden");
+      sessionSeconds = 0;
+      resetSessionTimerDisplay();
+      stopSessionTimer();
+    }
+
+    function startSessionTimer() {
+      if (sessionTimer) return;
+      
+      // Only start if online
+      if (!navigator.onLine) {
+        wasOffline = true;
+        return;
+      }
+      
+      sessionTimer = setInterval(() => {
+        sessionSeconds++;
+        updateTimerDisplay();
+
+        // हर 1 मिनट पर 10 Coin दें
+        if (sessionSeconds % 60 === 0) {
+          updateBalance(10, "Time Reward (1 minute)");
+          showNotification("आपको 1 मिनट खेलने पर 10+🪙Coin मिले है! इसी प्रकार खेलते रहे 60 मिनट खेलेंगे तो 300+🪙Coin मिलेंगे ");
+        }
+
+        // हर 60 मिनट पर 300 Coin दें
+        if (sessionSeconds % 3600 === 0) {
+          updateBalance(300, "Time Reward (60 minutes)");
+          showNotification("आपको 60 मिनट खेलने पर 300+🪙Coin मिले!");
+        }
+
+      }, 1000);
+    }
+
+    function stopSessionTimer() {
+      if (sessionTimer) {
+        clearInterval(sessionTimer);
+        sessionTimer = null;
+      }
+    }
+
+    function resetSessionTimerDisplay() {
+      document.getElementById("timeElapsed").innerText = "00:00";
+    }
+
+    function updateTimerDisplay() {
+      let minutes = Math.floor(sessionSeconds / 60);
+      let seconds = sessionSeconds % 60;
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+      document.getElementById("timeElapsed").innerText = `${minutes}:${seconds}`;
+    }
+
+    function showNotification(message) {
+      const box = document.getElementById("notifyBox");
+      box.innerText = message;
+      box.style.display = "block";
+      setTimeout(() => {
+        box.style.display = "none";
+      }, 4000);
+    }
+
+    function withdrawBox() {
+      const withdrawDiv = document.getElementById("withdrawSection");
+      withdrawDiv.classList.toggle("hidden");
+      
+      // Fill in saved UPI ID if available
+      const username = localStorage.getItem("loggedInUser");
+      const users = getUsers();
+      
+      if (users[username] && users[username].savedUpiId) {
+        document.getElementById("upiId").value = users[username].savedUpiId;
+      }
+    }
+
+    function processWithdraw() {
+      const upi = document.getElementById("upiId").value.trim();
+      const option = document.getElementById("withdrawAmount").value;
+      const [coinCost, rupees] = option.split("-").map(Number);
+      const username = localStorage.getItem("loggedInUser");
+      let users = getUsers();
+
+      if (!upi.includes("@")) {
+        alert("Valid UPI ID डालें।");
+        return;
+      }
+
+      if (users[username].balance < coinCost) {
+        alert("आपके पास पर्याप्त 🪙 Coin नहीं हैं।");
+        return;
+      }
+
+      if (!users[username].withdrawnOptions) {
+        users[username].withdrawnOptions = [];
+      }
+
+      if (users[username].withdrawnOptions.includes(option)) {
+        alert("आप पहले ही इस विकल्प से पैसे निकाल चुके हैं।");
+        return;
+      }
+
+      // Save the UPI ID for future use
+      users[username].savedUpiId = upi;
+
+      users[username].balance -= coinCost;
+      users[username].withdrawnOptions.push(option);
+      
+      // Add withdrawal to history
+      if (!users[username].coinHistory) {
+        users[username].coinHistory = [];
+      }
+      users[username].coinHistory.push({
+        date: new Date().toISOString(),
+        amount: -coinCost,
+        source: `Withdrawal (₹${rupees} to ${upi})`
+      });
+      
+      saveUsers(users);
+      document.getElementById("balance").innerText = users[username].balance;
+      alert(`₹${rupees} की निकासी सफल! पैसे जल्द ही ${upi} पर भेज दिए जाएंगे।`);
+      document.getElementById("withdrawSection").classList.add("hidden");
+
+      updateWithdrawOptions();
+    }
+
+    function fillReferralFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      const ref = params.get("ref");
+      if (ref) {
+        const inviteInput = document.getElementById("inviteUser");
+        if (inviteInput) {
+          inviteInput.value = ref;
+        }
+      }
+    }
+
+    function shareApp() {
+      const username = localStorage.getItem("loggedInUser");
+      const shareLink = `${window.location.origin}${window.location.pathname}?ref=${username}`;
+
+      if (navigator.share) {
+        navigator.share({
+          title: 'Dily Coin Wallet',
+          text: 'Earn coins with me on Dily Coin Wallet!',
+          url: shareLink
+        }).then(() => {
+          console.log('Shared successfully');
+        }).catch(console.error);
+      } else {
+        prompt("Copy and share this link:", shareLink);
+      }
+    }
+
+    function toggleMenu() {
+      const menu = document.getElementById("homeMenu");
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    function updateWithdrawOptions() {
+      const username = localStorage.getItem("loggedInUser");
+      const users = getUsers();
+      const select = document.getElementById("withdrawAmount");
+      const allOptions = [
+        { value: "100-2", text: "100 Coin = ₹2" },
+        { value: "20000-300", text: "20000 Coin = ₹300" },
+        { value: "40000-500", text: "40000 Coin = ₹500" },
+        { value: "80000-1000", text: "80000 Coin = ₹1000" },
+        { value: "100000-2000", text: "100000 Coin = ₹2000" },
+        { value: "200000-3000", text: "200000 Coin = ₹3000" },
+        { value: "400000-5000", text: "400000 Coin = ₹5000" },
+        { value: "800000-10000", text: "800000 Coin = ₹10000" }
+      ];
+
+      select.innerHTML = "";
+
+      const withdrawn = users[username].withdrawnOptions || [];
+
+      const available = allOptions.filter(opt => !withdrawn.includes(opt.value));
+
+      if (available.length === 0) {
+        const o = document.createElement("option");
+        o.textContent = "कोई विकल्प उपलब्ध नहीं है";
+        o.disabled = true;
+        o.selected = true;
+        select.appendChild(o);
+        select.disabled = true;
+      } else {
+        select.disabled = false;
+        available.forEach(opt => {
+          const o = document.createElement("option");
+          o.value = opt.value;
+          o.textContent = opt.text;
+          select.appendChild(o);
+        });
+      }
+    }
+
+    // History related functions
+    function showHistory() {
+      const username = localStorage.getItem("loggedInUser");
+      const users = getUsers();
+      
+      if (!users[username]) return;
+      
+      const historyList = document.getElementById("historyList");
+      historyList.innerHTML = "";
+      
+      // Get history array
+      const history = users[username].coinHistory || [];
+      
+      if (history.length === 0) {
+        historyList.innerHTML = "<p>No coin history available yet.</p>";
+      } else {
+        // Sort history by date (newest first)
+        history.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        history.forEach(item => {
+          const date = new Date(item.date);
+          const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+          
+          const historyItem = document.createElement("div");
+          historyItem.className = "history-item";
+          
+          historyItem.innerHTML = `
+            <div class="history-date">${formattedDate}</div>
+            <div class="history-amount">${item.amount > 0 ? '+' : ''}${item.amount} Coins</div>
+            <div class="history-source">Source: ${item.source}</div>
+          `;
+          
+          historyList.appendChild(historyItem);
+        });
+      }
+      
+      document.getElementById("historyModal").style.display = "block";
+    }
+    
+    function closeHistory() {
+      document.getElementById("historyModal").style.display = "none";
+    }
+
+    // Close modal if clicking outside of it
+    window.onclick = function(event) {
+      const modal = document.getElementById("historyModal");
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+
+    function myFunction() {
+      // Function placeholder for button clicks
+      console.log("Button clicked");
+    }
+
+    window.onload = () => {
+      fillReferralFromURL();
+      const username = localStorage.getItem("loggedInUser");
+      if (username && getUsers()[username]) {
+        showWallet();
+      }
+      
+      // Setup internet connection monitoring
+      setupInternetMonitoring();
+    };
+
+const startBtn = document.getElementById("start-btn");
+const dino = document.getElementById("dino");
+const game = document.getElementById("game");
+const scoreDisplay = document.getElementById("score");
+const livesDisplay = document.getElementById("lives");
+const sky = document.getElementById("sky");
+const clouds = document.getElementById("clouds");
+const restartBtn = document.getElementById("restart-btn");
+const flyBtn = document.getElementById("fly-btn");
+const muteBtn = document.getElementById("mute-btn");
+const eatenItemsBox = document.getElementById("eaten-items");
+const powerIndicator = document.getElementById("power-indicator");
+const magnetTimeDisplay = document.getElementById("magnet-time");
+const immunityIndicator = document.getElementById("immunity-indicator");
+const immunityTimeDisplay = document.getElementById("immunity-time");
+const countdownDisplay = document.getElementById("countdown");
+
+startBtn.addEventListener("click", () => {
+  startBtn.style.display = "none"; // बटन को छुपाएं
+  startGameWithCountdown(); // काउंटडाउन के साथ गेम शुरू करें
+});
+
+let score = 0;
+let eaten = 0;
+let level = 1;
+let gameSpeed = 3;
+let isFlying = false;
+let isMuted = false;
+let flyInterval;
+let fallInterval;
+let obstacleInterval;
+let scoreInterval;
+let cloudInterval;
+let magnetSpawnInterval;
+let immunitySpawnInterval;
+let magnetEffectInterval;
+let immunityEffectInterval;
+let magnetTimeLeft = 0;
+let immunityTimeLeft = 0;
+let hasMagneticPower = false;
+let hasImmunity = false;
+let isGameOver = false;
+let eatenItems = [];
+let dinoBottom = 0;
+let lives = 3; // तीन जान का सिस्टम
+let playTime = 0; // खेलने का समय (सेकंड में)
+let coinEarned = 0; // कमाए गए कॉइन
+
+// काउंटडाउन के साथ गेम शुरू करने का फंक्शन
+function startGameWithCountdown() {
+  countdownDisplay.style.display = "block";
+  countdownDisplay.textContent = "3";
+  
+  // काउंटडाउन साउंड
+  if(!isMuted) {
+    const countSound = new Audio('https://www.soundjay.com/buttons/sounds/button-09.mp3');
+    countSound.play();
+  }
+  
+  setTimeout(() => {
+    countdownDisplay.textContent = "2";
+    countdownDisplay.style.animation = "none";
+    void countdownDisplay.offsetWidth; // रीफ्लो
+    countdownDisplay.style.animation = "scale-in 0.5s ease-out";
+    
+    // काउंटडाउन साउंड
+    if(!isMuted) {
+      const countSound = new Audio('https://www.soundjay.com/buttons/sounds/button-09.mp3');
+      countSound.play();
+    }
+    
+    setTimeout(() => {
+      countdownDisplay.textContent = "1";
+      countdownDisplay.style.animation = "none";
+      void countdownDisplay.offsetWidth; // रीफ्लो
+      countdownDisplay.style.animation = "scale-in 0.5s ease-out";
+      
+      // काउंटडाउन साउंड
+      if(!isMuted) {
+        const countSound = new Audio('https://www.soundjay.com/buttons/sounds/button-09.mp3');
+        countSound.play();
+      }
+      
+      setTimeout(() => {
+        countdownDisplay.textContent = "GO!";
+        countdownDisplay.style.animation = "none";
+        void countdownDisplay.offsetWidth; // रीफ्लो
+        countdownDisplay.style.animation = "scale-in 0.5s ease-out";
+        
+        // गो साउंड
+        if(!isMuted) {
+          const goSound = new Audio('https://www.soundjay.com/misc/sounds/coin-drop-4.mp3');
+          goSound.play();
+        }
+        
+        setTimeout(() => {
+          countdownDisplay.style.display = "none";
+          startGame(); // वास्तविक गेम शुरू करें
+        }, 700);
+      }, 1000);
+    }, 1000);
+  }, 1000);
+}
+
+const levelThresholds = [500, 1000, 1500, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 15000, 20000, 30000, 40000, 50000];
+const dayEmojis = ["☀", "🌤", "⛅", "🌈"];
+const nightEmojis = ["🌙", "⭐", "✨", "🌟"];
+const cloudEmojis = ["☁️", "🌥", "🌦", "🌧"];
+const magnetItem = "🧲";
+
+const immunityItems = ["✴️", "🌀", "✳️", "❇️"];
+
+const leafItems = [
+  "🌿", "☘️", "🌱", "🌵", "🌴", "🌳", "🌲", "🎄", "🎋", "🍃",
+  "🌲", "🌳", "🎄", "🌴", "🌱", "🌿", "☘️", "🍄", "🍁", "🍂", "🍃",
+  "🎋", "🎍", "🍀", "🌾", "💐", "🍏", "🍎", "🍐", "🍊", "🍋", "🍌", "🍉", "🍍", "🥭", "🍑", "🍒", "🍈", "🍓", "🍇", "🥥", "🥝", "🥑", "🍅", "🥦", "🥬",
+  "🍏", "🍎", "🍐", "🍊", "🍋", "🍌", "🍉", "🍍", "🥭", "🍑", "🥦", "🍆", "🍅", "🥑", "🍈", "🥝", "🥒", "🥕",
+  "🌮", "🍕", "🥪", "🍁", "🍂", "🍃", "🌴", "🌱", "🌳"
+];
+        
+const otherItems = [
+    "🐘", "🚗", "🐆", "🔥", "🦏", "🪨", "🧌", "🛞", "🐊", "🦂",
+    "🚓", "🚑", "💣", "🚜", "🚛", "🚁", "🏜", "🏥", "🧨", "⚔️", "❌",
+    "🌪", "🌊", "🚗", "🚕", "🚙", "🚌", "🚎", "🏎", "🚓", "🚑", "🚒", "🚐",
+    "🚚", "🚛", "🚜", "🚠", "🚡", "🚋", "🚂", "🚄", "🚅", "🚈",
+    "🚁", "🚁", "🗼", "⛰️", "🏔", "🌉",
+    "🔨", "⚒️", "🛠", "⛏️", "💣", "💣", "💣", "🔫", "⛓️",
+    "🧱", "🧱", "🧱", "🧱", "⚙️", "🪓", "🧨", "🔪", "🗡", "⚔️"
+];
+
+// ट्रेन आइटम्स
+const trainItems = ["🚄", "🚅"]; 
+const trainCarItems = ["🚃", "🚋", "🚎"];
+
+const obstacles = [...leafItems, ...otherItems, ...trainItems];
+
+// साउंड इनिशियलाइज़ेशन
+const audio = {
+  jump: new Audio('https://www.soundjay.com/buttons/sounds/button-09.mp3'),
+  eat: new Audio('https://www.soundjay.com/buttons/sounds/button-14.mp3'),
+  magnet: new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3'),
+  immunity: new Audio('https://www.soundjay.com/misc/sounds/coin-drop-4.mp3'),
+  gameOver: new Audio('https://www.soundjay.com/misc/sounds/fail-buzzer-03.mp3'),
+  bgm: new Audio('https://www.soundjay.com/nature/sounds/rain-07.mp3'),
+  loseLife: new Audio('https://www.soundjay.com/misc/sounds/failure-drum-sound-effect-2.mp3'),
+  train: new Audio('https://www.soundjay.com/transportation/sounds/train-whistle-01.mp3'),
+  coin: new Audio('https://www.soundjay.com/misc/sounds/coin-drop-4.mp3')
+};
+
+// BGM को लूप में चलाने के लिए
+audio.bgm.loop = true;
+
+function startFlying() {
+  if (isGameOver) return;
+  if(!isMuted) audio.jump.play();
+  
+  isFlying = true;
+  clearInterval(fallInterval);
+  dino.classList.add('jump');
+  setTimeout(() => dino.classList.remove('jump'), 500);
+
+  flyInterval = setInterval(() => {
+    dinoBottom += 5;
+    if (dinoBottom > 180) dinoBottom = 180;
+    dino.style.bottom = dinoBottom + "px";
+  }, 20);
+}
+
+function stopFlying() {
+  if (isGameOver) return;
+  isFlying = false;
+  clearInterval(flyInterval);
+  
+  fallInterval = setInterval(() => {
+    dinoBottom -= 5;
+    if (dinoBottom < 0) {
+      dinoBottom = 0;
+      clearInterval(fallInterval);
+    }
+    dino.style.bottom = dinoBottom + "px";
+  }, 20);
+}
+
+// कंट्रोल्स सेटअप
+document.addEventListener("touchstart", startFlying);
+document.addEventListener("touchend", stopFlying);
+document.addEventListener("mousedown", startFlying);
+document.addEventListener("mouseup", stopFlying);
+document.addEventListener("keydown", (e) => {
+  if (e.code === "Space") startFlying();
+});
+document.addEventListener("keyup", (e) => {
+  if (e.code === "Space") stopFlying();
+});
+flyBtn.addEventListener("mousedown", startFlying);
+flyBtn.addEventListener("mouseup", stopFlying);
+flyBtn.addEventListener("touchstart", startFlying);
+flyBtn.addEventListener("touchend", stopFlying);
+
+function updateLives() {
+  livesDisplay.innerHTML = `जान: ${"❤️".repeat(lives)}`;
+}
+
+function loseLife() {
+  if (lives > 0) {
+    lives--;
+    updateLives();
+    
+    // जान खोने पर एनिमेशन
+    livesDisplay.classList.add("heart-lost");
+    setTimeout(() => livesDisplay.classList.remove("heart-lost"), 500);
+    
+    if(!isMuted) audio.loseLife.play();
+    
+    if (lives === 0) {
+      gameOver();
+    } else {
+      // जान खोने पर डायनासोर को कुछ समय के लिए इम्युनिटी
+      hasImmunity = true;
+      dino.classList.add("immune");
+      setTimeout(() => {
+        hasImmunity = false;
+        dino.classList.remove("immune");
+      }, 1500);
+    }
+  }
+}
+
+function startGame() {
+  isGameOver = false;
+  score = 0;
+  level = 1;
+  eaten = 0;
+  lives = 3; // तीन जान से शुरू
+  eatenItems = [];
+  gameSpeed = 3;
+  dinoBottom = 0;
+  magnetTimeLeft = 0;
+  immunityTimeLeft = 0;
+  hasMagneticPower = false;
+  hasImmunity = false;
+  dino.textContent = "🦕";
+  dino.style.bottom = "0px";
+  dino.classList.remove("magnetized");
+  dino.classList.remove("immune");
+  restartBtn.style.display = "none";
+  powerIndicator.style.display = "none";
+  immunityIndicator.style.display = "none";
+  eatenItemsBox.innerHTML = "";
+  document.querySelectorAll(".obstacle").forEach(ob => ob.remove());
+  document.querySelectorAll(".train-car").forEach(car => car.remove());
+  
+  updateLives(); // जान अपडेट करें
+  
+  if(!isMuted) audio.bgm.play();
+  
+  scoreInterval = setInterval(() => {
+    score++;
+    updateScore();
+    
+    // कॉइन कमाई का सिस्टम - हर 60 सेकंड (1 मिनट) पर 10 कॉइन
+    playTime += 0.2;
+    if (playTime % 60 < 0.2 && playTime > 1) {
+      coinEarned += 10;
+      if(!isMuted) audio.coin.play();
+      const coinMsg = document.createElement("div");
+      coinMsg.innerHTML = "+10 🪙";
+      coinMsg.style.position = "fixed";
+      coinMsg.style.top = "50%";
+      coinMsg.style.left = "50%";
+      coinMsg.style.transform = "translate(-50%, -50%)";
+      coinMsg.style.color = "gold";
+      coinMsg.style.fontSize = "36px";
+      coinMsg.style.fontWeight = "bold";
+      coinMsg.style.textShadow = "0 0 10px rgba(0,0,0,0.5)";
+      coinMsg.style.zIndex = "1000";
+      document.body.appendChild(coinMsg);
+      coinMsg.classList.add("special-effect");
+      setTimeout(() => coinMsg.remove(), 2000);
+    }
+    
+    // लेवल अपडेट
+    if (score % 100 === 0) {
+      gameSpeed *= 0.97;
+      clearInterval(obstacleInterval);
+      obstacleInterval = setInterval(spawnObstacle, gameSpeed * 1000);
+    }
+  }, 200);
+
+  obstacleInterval = setInterval(spawnObstacle, gameSpeed * 1000);
+  cloudInterval = setInterval(spawnCloud, 3000);
+  magnetSpawnInterval = setInterval(spawnMagnet, 60000); // हर 1 मिनट में चुंबक स्पॉन करें
+  immunitySpawnInterval = setInterval(spawnImmunityItem, 30000); // हर 30 सेकंड में इम्युनिटी आइटम स्पॉन करें
+}
+
+function spawnImmunityItem() {
+  if (isGameOver) return;
+  
+  // 2% चांस हर बार जब कोई आइटम स्पॉन होता है
+  if (Math.random() > 0.02 && !window.forceImmunity) return;
+  window.forceImmunity = false;
+  
+  const immunityItem = document.createElement("div");
+  immunityItem.className = "obstacle";
+  const randomImmuneEmoji = immunityItems[Math.floor(Math.random() * immunityItems.length)];
+  immunityItem.textContent = randomImmuneEmoji;
+  immunityItem.dataset.emoji = randomImmuneEmoji;
+  immunityItem.style.animationDuration = `${gameSpeed}s`;
+  
+  // रैंडम ऊंचाई पर स्पॉन करें
+  if(Math.random() > 0.5) {
+    immunityItem.style.bottom = Math.floor(Math.random() * 150) + "px";
+  } else {
+    immunityItem.style.bottom = "0px";
+  }
+  
+  game.appendChild(immunityItem);
+  setTimeout(() => {
+    if (immunityItem && immunityItem.parentNode) immunityItem.remove();
+  }, gameSpeed * 1000 + 500);
+}
+
+function activateImmunity() {
+  if (isGameOver) return;
+  
+  hasImmunity = true;
+  immunityTimeLeft = 30; // 30 सेकंड
+  immunityIndicator.style.display = "block";
+  dino.classList.add("immune");
+  
+  if (!isMuted) audio.immunity.play();
+  
+  // इम्युनिटी के दौरान हर फ्रेम पर चेक करें
+  clearInterval(immunityEffectInterval);
+  immunityEffectInterval = setInterval(() => {
+    immunityTimeLeft -= 0.1;
+    immunityTimeDisplay.textContent = immunityTimeLeft.toFixed(1);
+    
+    if (immunityTimeLeft <= 0) {
+      clearInterval(immunityEffectInterval);
+      hasImmunity = false;
+      immunityIndicator.style.display = "none";
+      dino.classList.remove("immune");
+    }
+  }, 100);
+}
+
+function spawnMagnet() {
+  if (isGameOver) return;
+  
+  // 1% चांस हर बार जब कोई आइटम स्पॉन होता है
+  if (Math.random() > 0.01 && !window.forceMagnet) return;
+  window.forceMagnet = false;
+  
+  const magnet = document.createElement("div");
+  magnet.className = "obstacle";
+  magnet.textContent = "🧲";
+  magnet.dataset.emoji = "🧲";
+  magnet.style.animationDuration = `${gameSpeed}s`;
+  
+  // रैंडम ऊंचाई पर स्पॉन करें
+  if(Math.random() > 0.5) {
+    magnet.style.bottom = "100px";
+  } else {
+    magnet.style.bottom = "0px";
+  }
+  
+  game.appendChild(magnet);
+  setTimeout(() => {
+    if (magnet && magnet.parentNode) magnet.remove();
+  }, gameSpeed * 1000 + 500);
+}
+
+function activateMagneticPower() {
+  if (isGameOver) return;
+  
+  hasMagneticPower = true;
+  magnetTimeLeft = 10; // 10 सेकंड
+  powerIndicator.style.display = "block";
+  dino.classList.add("magnetized");
+  
+  if (!isMuted) audio.magnet.play();
+  
+  // मैग्नेटिक पावर के दौरान हर फ्रेम पर चेक करें
+  clearInterval(magnetEffectInterval);
+  magnetEffectInterval = setInterval(() => {
+    magnetTimeLeft -= 0.1;
+    magnetTimeDisplay.textContent = magnetTimeLeft.toFixed(1);
+    
+    if (magnetTimeLeft <= 0) {
+      clearInterval(magnetEffectInterval);
+      hasMagneticPower = false;
+      powerIndicator.style.display = "none";
+      dino.classList.remove("magnetized");
+    }
+  }, 100);
+}
+
+function spawnCloud() {
+  const cloud = document.createElement("div");
+  cloud.className = "cloud";
+  cloud.textContent = cloudEmojis[Math.floor(Math.random() * cloudEmojis.length)];
+  cloud.style.top = Math.random() * 100 + "px";
+  cloud.style.animationDuration = (10 + Math.random() * 20) + "s";
+  clouds.appendChild(cloud);
+  setTimeout(() => cloud.remove(), 30000);
+}
+
+function updateScore() {
+  scoreDisplay.innerHTML = `लेवल: ${level} | स्कोर: ${score} | खाया: ${eaten}`;
+  
+  const nextThreshold = levelThresholds[level-1];
+  if(nextThreshold && score >= nextThreshold) {
+    level++;
+    gameSpeed *= 0.85;
+    clearInterval(obstacleInterval);
+    obstacleInterval = setInterval(spawnObstacle, gameSpeed * 800);
+    spawnObstacle();
+    if(!isMuted) audio.eat.play();
+  }
+}
+
+
+function spawnObstacle() {
+  if (isGameOver) return;
+  const ob = document.createElement("div");
+  ob.className = "obstacle";
+  
+  // लेवल के अनुसार खतरनाक आइटम्स की प्रोबेबिलिटी बढ़ाएं
+  const harmfulProbability = Math.min(0.2 + (level*0.05), 0.6);
+  
+  // अमरत्व आइटम के लिए छोटा चांस (3%)
+  if (Math.random() < 0.03) {
+    const randomImmuneEmoji = immunityItems[Math.floor(Math.random() * immunityItems.length)];
+    ob.textContent = randomImmuneEmoji;
+    ob.dataset.emoji = randomImmuneEmoji;
+  }
+  // 1% चांस चुंबक स्पॉन होने का
+  else if (Math.random() < 0.01) {
+    ob.textContent = "🧲";
+    ob.dataset.emoji = "🧲";
+  } else {
+    const pool = Math.random() < harmfulProbability ? otherItems : leafItems;
+    const emoji = pool[Math.floor(Math.random() * pool.length)];
+    ob.textContent = emoji;
+    ob.dataset.emoji = emoji;
+
+    // ट्रेन के साथ बोगियां जोड़ें
+    if (trainItems.includes(emoji)) {
+  spawnTrainWithCarriages(ob);
+}
+}
+
+  ob.style.animationDuration = `${gameSpeed}s`;
+
+  if(level > 3 && Math.random() < 0.4) {
+    ob.style.bottom = "100px";
+  } else {
+    ob.style.bottom = Math.random() > 0.7 ? "100px" : "0px";
+  }
+
+  game.appendChild(ob);
+  setTimeout(() => {
+    if (ob && ob.parentNode) ob.remove();
+  }, gameSpeed * 1000 + 500);
+}
+
+// नया फंक्शन: ट्रेन के साथ बोगियां बनाएं
+function spawnTrainWithCarriages(train) {
+  const numCarriages = 5; // टिब्बों की संख्या
+  const carriageSpacing = 45; // टिब्बों के बीच की दूरी
+  
+  for(let i=1; i<=numCarriages; i++) {
+    const carriage = document.createElement("div");
+    carriage.className = "obstacle";
+    carriage.textContent = '🚃'; // हर टिब्बे के लिए अलग इमोजी
+    carriage.dataset.emoji = '🚃';
+    carriage.style.right = `${-carriageSpacing * i}px`; // ट्रेन के पीछे जोड़ें
+    carriage.style.bottom = train.style.bottom;
+    carriage.style.animationDuration = `${gameSpeed}s`;
+    
+    game.appendChild(carriage);
+    
+    setTimeout(() => {
+      if(carriage.parentNode) carriage.remove();
+    }, gameSpeed * 1000 + 500);
+  }
+  
+  // ट्रेन हॉर्न साउंड
+  if(!isMuted) audio.train.play();
+}
+// टक्कर जाँच और मैग्नेटिक पावर इफेक्ट
+setInterval(() => {
+  if (isGameOver) return;
+  const dinoRect = dino.getBoundingClientRect();
+  
+  document.querySelectorAll(".obstacle").forEach(ob => {
+    const obRect = ob.getBoundingClientRect();
+    const emoji = ob.dataset.emoji;
+    
+    // मैग्नेटिक पावर एक्टिव है और यह एक अच्छा आइटम है
+    if (hasMagneticPower && leafItems.includes(emoji)) {
+      // आइटम को डायनासोर की ओर खींचें
+      const dx = dinoRect.left - obRect.left;
+      const dy = dinoRect.top - obRect.top;
+      const distance = Math.sqrt(dx*dx + dy*dy);
+      
+      if (distance < 200) {
+        const speedX = dx * 0.05;
+        const speedY = dy * 0.05;
+        ob.style.transform = `translate(${speedX}px, ${speedY}px)`;
+      }
+    }
+    
+    // टक्कर चेक
+    if (dinoRect.left < obRect.right - 10 &&
+        dinoRect.right > obRect.left + 10 &&
+        dinoRect.bottom > obRect.top + 10 &&
+        dinoRect.top < obRect.bottom - 10) {
+      
+      if (immunityItems.includes(emoji)) {
+        activateImmunity();
+        ob.remove();
+      } else if (emoji === "🧲") {
+        activateMagneticPower();
+        ob.remove();
+      } else if (leafItems.includes(emoji)) {
+        eaten++;
+        const itemText = emoji.replace(/[^a-zA-Zअ-ज्ञ]/g, '');
+        const span = document.createElement("span");
+        span.title = `${itemText} खाया`;
+        span.innerText = emoji;
+        eatenItemsBox.appendChild(span);
+        if(!isMuted) audio.eat.play();
+        updateScore();
+        ob.remove();
+      } else if (otherItems.includes(emoji)) {
+        if (hasImmunity) {
+          // अमरत्व के दौरान कुछ नहीं होता
+          ob.remove();
+        } else {
+          // एक जान कम हो जाती है
+          loseLife();
+          ob.remove();
+        }
+      }
+    }
+  });
+}, 20);
+
+function gameOver() {
+  isGameOver = true;
+  clearInterval(obstacleInterval);
+  clearInterval(scoreInterval);
+  clearInterval(cloudInterval);
+  clearInterval(flyInterval);
+  clearInterval(fallInterval);
+  clearInterval(magnetSpawnInterval);
+  clearInterval(magnetEffectInterval);
+  clearInterval(immunityEffectInterval);
+  
+  dino.textContent = "👾";
+  restartBtn.style.display = "block";
+  powerIndicator.style.display = "none";
+  dino.classList.remove("magnetized");
+  
+  if(!isMuted) {
+    audio.gameOver.play();
+    audio.bgm.pause();
+  }
+}
+
+// म्यूट फंक्शन
+muteBtn.addEventListener('click', () => {
+  isMuted = !isMuted;
+  muteBtn.innerHTML = isMuted ? '🔇' : '🔊';
+  audio.bgm[isMuted ? 'pause' : 'play']();
+});
+
+// मैग्नेट टेस्टिंग के लिए फंक्शन
+window.forceMagnet = false;
+window.spawnTestMagnet = function() {
+  window.forceMagnet = true;
+  spawnMagnet();
+};
+
+// दिन/रात चक्र
+let isNight = false;
+function toggleDayNight() {
+  isNight = !isNight;
+  document.body.style.backgroundColor = isNight ? "#001a33" : "#ddf3ff";
+  sky.innerHTML = "";
+  const emojis = isNight ? nightEmojis : dayEmojis;
+  for(let i=0; i<4; i++) {
+    const star = document.createElement("span");
+    star.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+    star.style.position = "absolute";
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 80 + "%";
+    sky.appendChild(star);
+  }
+}
+
+restartBtn.addEventListener("click", startGame);
+restartBtn.addEventListener("touchstart", startGame);
+
+// गेम शुरू
+toggleDayNight();
+setInterval(toggleDayNight, 25000);
+document.addEventListener('click', () => audio.bgm.play(), {once: true});
+
+// उपयोगकर्ता अनुभव सुधार
+document.addEventListener('contextmenu', e => e.preventDefault());
+</script>
+
+</body>
+</html>
+🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱🧱
+====================================================================================
+
+  </script>
+</div>
+</body>
+</html>
